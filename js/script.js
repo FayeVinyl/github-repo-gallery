@@ -1,23 +1,15 @@
-// div where profile info appears
 const overview = document.querySelector(".overview");
-// github username
 const username = "FayeVinyl";
-// unordered list to display repos list
 const repoList = document.querySelector(".repo-list");
-// repo info section
 const allReposContainer = document.querySelector(".repos");
-// repo data section
 const repoData = document.querySelector(".repo-data");
-// back to repos button
 const backToRepoGalleryButton = document.querySelector(".view-repos");
-// search for repos
 const filterInput = document.querySelector(".filter-repos");
 
 // Fetch API JSON Data
 const gitUserInfo = async function() {
   const userInfo = await fetch(`https://api.github.com/users/${username}`);
   const data = await userInfo.json();
-  //console.log(data);
   displayUserInfo(data);
 };
 gitUserInfo();
@@ -48,7 +40,7 @@ const gitRepos = async function (username) {
   displayRepos(repoData);
 }
 
-// Display info about 
+// Display info about
 const displayRepos = function (repos) {
   filterInput.classList.remove("hide");
   for (const repo of repos) {
@@ -71,18 +63,15 @@ repoList.addEventListener("click", function (e) {
 const getRepoInfo = async function(repoName) {
   const fetchInfo = await fetch(`https://api.github.com/repos/${username}/${repoName}`);
   const repoInfo = await fetchInfo.json();
-  //console.log(repoInfo);
 
   // fetch languages
   const fetchLanguages = await fetch(repoInfo.languages_url);
   const languageData =await fetchLanguages.json();
-  //console.log(languageData);
 
   // array of languages
   const languages = [];
   for(const language in languageData) {
     languages.push(language);
-    //console.log(languages);
   }
   displayRepoInfo(repoInfo, languages);
 };
@@ -114,7 +103,6 @@ backToRepoGalleryButton.addEventListener("click", function () {
 // search through repos
 filterInput.addEventListener("input", function(e) {
   const inputValue = e.target.value;
-  //console.log(inputValue);
   const repos = document.querySelectorAll(".repo");
   const inputValueLower = inputValue.toLowerCase();
 
